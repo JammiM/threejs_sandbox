@@ -2,6 +2,7 @@
 
 import * as THREE from "three";
 import * as css from "./reset.css";
+import WebGL from "three/examples/jsm/capabilities/WebGL";
 
 class App {
   constructor() {}
@@ -26,7 +27,14 @@ class App {
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setAnimationLoop(animate);
+
+    if (WebGL.isWebGL2Available) {
+      renderer.setAnimationLoop(animate);
+    } else {
+      const warning = WebGL.getWebGL2ErrorMessage();
+      document.getElementById("container").appendChild(warning);
+    }
+
     document.body.appendChild(renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(3, 3, 3);
