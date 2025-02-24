@@ -1,6 +1,7 @@
 "use strict";
 
 import * as THREE from "three";
+import * as css from "./reset.css";
 
 class App {
   constructor() {}
